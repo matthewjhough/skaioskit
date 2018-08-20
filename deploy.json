@@ -4,13 +4,13 @@
         {
             "Type": "ChildDeployment",
             "Args": {
-                "dir": "server/voter-service"
+                "Dir": "server/voter-service"
             }
         },
         {
             "Type": "ChildDeployment",
             "Args": {
-                "dir": "server/auth-service"
+                "Dir": "server/auth-service"
             }
         }
     ]
