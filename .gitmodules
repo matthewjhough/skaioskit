@@ -4,3 +4,12 @@
 [submodule "server/voter-service"]
 	path = server/voter-service
 	url = git@github.com:nathanmentley/skaioskit-voter-service.git
+[submodule "server/auth-service"]
+	path = server/auth-service
+	url = git@github.com:nathanmentley/skaioskit-auth-service.git
+[submodule "server/user-service"]
+	path = server/user-service
+	url = git@github.com:nathanmentley/skaioskit-user-service.git
+[submodule "server/gateway-service"]
+	path = server/gateway-service
+	url = git@github.com:nathanmentley/skaioskit-gateway-service.git
