@@ -13,3 +13,6 @@
 [submodule "server/gateway-service"]
 	path = server/gateway-service
 	url = git@github.com:nathanmentley/skaioskit-gateway-service.git
+[submodule "libs/go-core"]
+	path = libs/go-core
+	url = git@github.com:nathanmentley/skaioskit-go-core.git
