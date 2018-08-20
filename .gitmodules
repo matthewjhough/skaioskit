@@ -16,3 +16,6 @@
 [submodule "libs/go-core"]
 	path = libs/go-core
 	url = git@github.com:nathanmentley/skaioskit-go-core.git
+[submodule "client/web"]
+	path = client/web
+	url = git@github.com:matthewjhough/skaioskit-client.git
