@@ -1,0 +1,6 @@
+[submodule "deploy"]
+	path = deploy
+	url = git@github.com:nathanmentley/skaioskit-deployment.git
+[submodule "server/voter-service"]
+	path = server/voter-service
+	url = git@github.com:nathanmentley/skaioskit-voter-service.git
