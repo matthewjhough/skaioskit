@@ -1,17 +1,61 @@
 {
     "Title": "Skaioskit Master Package",
-    "Steps": [
-        {
-            "Type": "ChildDeployment",
-            "Args": {
-                "Dir": "server/voter-service"
-            }
+    "Commands": {
+        "build-auth": {
+            "Requires": [],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/auth-service",
+                        "Command": "build"
+                    }
+                }
+            ]
         },
-        {
-            "Type": "ChildDeployment",
-            "Args": {
-                "Dir": "server/auth-service"
-            }
+        "build-voter": {
+            "Requires": [],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/voter-service",
+                        "Command": "build"
+                    }
+                }
+            ]
+        },
+        "build": {
+            "Requires": ["build-auth", "build-voter"],
+            "Steps": []
+        },
+        "deploy-auth": {
+            "Requires": [],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/auth-service",
+                        "Command": "deploy"
+                    }
+                }
+            ]
+        },
+        "deploy-voter": {
+            "Requires": [],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/voter-service",
+                        "Command": "deploy"
+                    }
+                }
+            ]
+        },
+        "deploy": {
+            "Requires": ["deploy-auth", "deploy-voter"],
+            "Steps": []
         }
-    ]
+    }
 }
