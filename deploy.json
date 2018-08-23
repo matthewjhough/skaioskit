@@ -25,6 +25,30 @@
                 }
             ]
         },
+        "build-operation": {
+            "Requires": [],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/operation-service",
+                        "Command": "build"
+                    }
+                }
+            ]
+        },
+        "build-task": {
+            "Requires": [],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/task-service",
+                        "Command": "build"
+                    }
+                }
+            ]
+        },
         "build-user": {
             "Requires": [],
             "Steps": [
@@ -51,7 +75,7 @@
         },
 
         "build": {
-            "Requires": ["build-auth", "build-gateway", "build-user", "build-voter"],
+            "Requires": ["build-auth", "build-gateway", "build-operation", "build-task", "build-user", "build-voter"],
             "Steps": []
         },
 
