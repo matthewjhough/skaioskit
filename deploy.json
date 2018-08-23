@@ -25,6 +25,18 @@
                 }
             ]
         },
+        "build-user": {
+            "Requires": [],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/user-service",
+                        "Command": "build"
+                    }
+                }
+            ]
+        },
         "build-voter": {
             "Requires": [],
             "Steps": [
@@ -39,7 +51,7 @@
         },
 
         "build": {
-            "Requires": ["build-auth", "build-gateway", "build-voter"],
+            "Requires": ["build-auth", "build-gateway", "build-user", "build-voter"],
             "Steps": []
         },
 
