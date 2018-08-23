@@ -13,6 +13,18 @@
                 }
             ]
         },
+        "build-gateway": {
+            "Requires": [],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/gateway-service",
+                        "Command": "build"
+                    }
+                }
+            ]
+        },
         "build-voter": {
             "Requires": [],
             "Steps": [
@@ -27,7 +39,7 @@
         },
 
         "build": {
-            "Requires": ["build-auth", "build-voter"],
+            "Requires": ["build-auth", "build-gateway", "build-voter"],
             "Steps": []
         },
 
