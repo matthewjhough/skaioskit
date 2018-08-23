@@ -19,3 +19,9 @@
 [submodule "client/web"]
 	path = client/web
 	url = git@github.com:matthewjhough/skaioskit-client.git
+[submodule "server/task-service"]
+	path = server/task-service
+	url = git@github.com:nathanmentley/skaioskit-task-service.git
+[submodule "server/operation-service"]
+	path = server/operation-service
+	url = git@github.com:nathanmentley/skaioskit-operation-service.git
