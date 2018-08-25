@@ -73,15 +73,14 @@
                 }
             ]
         },
-
         "build": {
-            "Requires": ["build-auth", "build-gateway", "build-operation", "build-task", "build-user", "build-voter"],
+            "Requires": ["build-auth", "build-gateway"],
             "Steps": []
         },
 
 
         "deploy-auth": {
-            "Requires": [],
+            "Requires": ["build-auth"],
             "Steps": [
                 {
                     "Type": "ChildDeployment",
@@ -92,8 +91,56 @@
                 }
             ]
         },
+        "deploy-gateway": {
+            "Requires": ["build-gateway"],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/gateway-service",
+                        "Command": "deploy"
+                    }
+                }
+            ]
+        },
+        "deploy-operation": {
+            "Requires": ["build-operation"],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/operation-service",
+                        "Command": "deploy"
+                    }
+                }
+            ]
+        },
+        "deploy-task": {
+            "Requires": ["build-task"],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/task-service",
+                        "Command": "deploy"
+                    }
+                }
+            ]
+        },
+        "deploy-user": {
+            "Requires": ["build-user"],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/user-service",
+                        "Command": "deploy"
+                    }
+                }
+            ]
+        },
         "deploy-voter": {
-            "Requires": [],
+            "Requires": ["build-voter"],
             "Steps": [
                 {
                     "Type": "ChildDeployment",
@@ -104,10 +151,110 @@
                 }
             ]
         },
-
         "deploy": {
-            "Requires": ["deploy-auth", "deploy-voter"],
+            "Requires": ["deploy-auth", "deploy-gateway"],
             "Steps": []
+        },
+
+
+        "stop-auth": {
+            "Requires": [],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/auth-service",
+                        "Command": "stop"
+                    }
+                }
+            ]
+        },
+        "stop-gateway": {
+            "Requires": [],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/gateway-service",
+                        "Command": "stop"
+                    }
+                }
+            ]
+        },
+        "stop-operation": {
+            "Requires": [],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/operation-service",
+                        "Command": "stop"
+                    }
+                }
+            ]
+        },
+        "stop-task": {
+            "Requires": [],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/task-service",
+                        "Command": "stop"
+                    }
+                }
+            ]
+        },
+        "stop-user": {
+            "Requires": [],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/user-service",
+                        "Command": "stop"
+                    }
+                }
+            ]
+        },
+        "stop-voter": {
+            "Requires": [],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/voter-service",
+                        "Command": "stop"
+                    }
+                }
+            ]
+        },
+        "stop": {
+            "Requires": ["stop-auth", "stop-gateway", "stop-operation", "stop-task", "stop-user", "stop-voter"],
+            "Steps": []
+        },
+
+
+        "setup": {
+            "Requires": [],
+            "Steps": [
+                {
+                    "Type": "RunCommand",
+                    "Args": {
+                        "Command": [
+                            "docker",
+                            "run",
+                            "-d",
+                            "-p",
+                            "5000:5000",
+                            "--restart=always",
+                            "--name",
+                            "registry",
+                            "registry:2"
+                        ]
+                    }
+                }
+            ]
         }
     }
 }
