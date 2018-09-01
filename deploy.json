@@ -74,13 +74,24 @@
             ]
         },
         "build": {
-            "Requires": ["build-auth", "build-gateway"],
+            "Requires": ["build-auth", "build-gateway", "build-operation", "build-task", "build-user", "build-voter"],
             "Steps": []
         },
 
 
+        "pre-deploy": {
+            "Requires": [],
+            "Steps": [
+                {
+                    "Type": "EnsureSecret",
+                    "Args": {
+                        "Key": "skaioskit-jwt-secret"
+                    }
+                }
+            ]
+        },
         "deploy-auth": {
-            "Requires": ["build-auth"],
+            "Requires": ["build-auth", "pre-deploy"],
             "Steps": [
                 {
                     "Type": "ChildDeployment",
@@ -92,7 +103,7 @@
             ]
         },
         "deploy-gateway": {
-            "Requires": ["build-gateway"],
+            "Requires": ["build-gateway", "pre-deploy"],
             "Steps": [
                 {
                     "Type": "ChildDeployment",
@@ -104,7 +115,7 @@
             ]
         },
         "deploy-operation": {
-            "Requires": ["build-operation"],
+            "Requires": ["build-operation", "pre-deploy"],
             "Steps": [
                 {
                     "Type": "ChildDeployment",
@@ -116,7 +127,7 @@
             ]
         },
         "deploy-task": {
-            "Requires": ["build-task"],
+            "Requires": ["build-task", "pre-deploy"],
             "Steps": [
                 {
                     "Type": "ChildDeployment",
@@ -128,7 +139,7 @@
             ]
         },
         "deploy-user": {
-            "Requires": ["build-user"],
+            "Requires": ["build-user", "pre-deploy"],
             "Steps": [
                 {
                     "Type": "ChildDeployment",
@@ -140,7 +151,7 @@
             ]
         },
         "deploy-voter": {
-            "Requires": ["build-voter"],
+            "Requires": ["build-voter", "pre-deploy"],
             "Steps": [
                 {
                     "Type": "ChildDeployment",
@@ -152,10 +163,26 @@
             ]
         },
         "deploy": {
-            "Requires": ["deploy-auth", "deploy-gateway"],
+            "Requires": ["pre-deploy", "deploy-auth", "deploy-gateway", "deploy-operation", "deploy-task", "deploy-user", "deploy-voter"],
             "Steps": []
         },
 
+        "ensure-voter": {
+            "Requires": [],
+            "Steps": [
+                {
+                    "Type": "ChildDeployment",
+                    "Args": {
+                        "Dir": "server/voter-service",
+                        "Command": "ensure"
+                    }
+                }
+            ]
+        },
+        "ensure": {
+            "Requires": ["ensure-voter"],
+            "Steps": []
+        },
 
         "stop-auth": {
             "Requires": [],
